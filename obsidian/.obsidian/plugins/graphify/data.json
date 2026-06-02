@@ -1,0 +1,30 @@
+{
+  "colorGroups": [
+    {
+      "query": "tag:#marca",
+      "color": { "a": 1, "rgb": 4473924 }
+    },
+    {
+      "query": "tag:#titular",
+      "color": { "a": 1, "rgb": 16744272 }
+    },
+    {
+      "query": "tag:#classe",
+      "color": { "a": 1, "rgb": 5636095 }
+    }
+  ],
+  "showTags": true,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse": false,
+  "fixedNodeSize": false,
+  "nodeSize": 8,
+  "linkThickness": 1.2,
+  "linkDistance": 120,
+  "repelStrength": 12,
+  "filters": {
+    "tags": ["marca", "titular", "classe"],
+    "folders": ["Marcas", "Titulares", "Despachos"]
+  }
+}

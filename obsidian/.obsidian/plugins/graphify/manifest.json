@@ -1,0 +1,10 @@
+{
+  "id": "graphify",
+  "name": "Graphify 2",
+  "version": "2.0.0",
+  "minAppVersion": "0.15.0",
+  "description": "Visualização avançada de grafos de conhecimento com filtros por tags, tipos de nós e relacionamentos.",
+  "author": "Graphify",
+  "authorUrl": "https://github.com/graphify-obsidian/graphify",
+  "isDesktopOnly": false
+}
