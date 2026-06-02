@@ -1,32 +1,25 @@
-# Dados locais (arquivos grandes - baixe separadamente se necessário)
-*.pdf
-*.xml
-*.xlsm
-
 # Python
 __pycache__/
-*.py[oc]
-.venv/
-venv/
+*.py[cod]
 *.egg-info/
-build/
 dist/
-wheels/
+build/
+.venv/
+.uv/
 
-# IDE / editor
-.claude/
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# Dados e logs da aplicação
-app/data/
+# Logs e dados locais
 app/logs/
+app/data/monitor.db
+*.log
 
-# Obsidian (notas locais)
-inpi/.obsidian/
+# Obsidian — dados sensíveis e cache
+obsidian/.obsidian/plugins/graphify/data.json
+obsidian/.obsidian/workspace.json
+obsidian/.obsidian/workspace-mobile.json
+obsidian/.obsidian/cache
+obsidian/.trash/
 
-# OS
+# Sistema
 .DS_Store
 Thumbs.db
+*.swp

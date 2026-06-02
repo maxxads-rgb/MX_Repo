@@ -2,9 +2,9 @@
   "id": "graphify",
   "name": "Graphify 2",
   "version": "2.0.0",
-  "minAppVersion": "0.15.0",
-  "description": "Visualização avançada de grafos de conhecimento com filtros por tags, tipos de nós e relacionamentos.",
-  "author": "Graphify",
-  "authorUrl": "https://github.com/graphify-obsidian/graphify",
+  "minAppVersion": "1.0.0",
+  "description": "Gera grafos de conhecimento com análise semântica via Claude AI. Detecta conexões entre notas e sugere links automaticamente.",
+  "author": "maxxads-rgb",
+  "authorUrl": "https://github.com/maxxads-rgb",
   "isDesktopOnly": false
 }

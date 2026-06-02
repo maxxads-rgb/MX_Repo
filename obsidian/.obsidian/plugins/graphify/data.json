@@ -1,30 +1,15 @@
 {
+  "apiKey": "",
+  "model": "claude-sonnet-4-6",
+  "autoAnalyze": false,
+  "maxNotesPerBatch": 20,
+  "minSimilarityScore": 0.6,
   "colorGroups": [
-    {
-      "query": "tag:#marca",
-      "color": { "a": 1, "rgb": 4473924 }
-    },
-    {
-      "query": "tag:#titular",
-      "color": { "a": 1, "rgb": 16744272 }
-    },
-    {
-      "query": "tag:#classe",
-      "color": { "a": 1, "rgb": 5636095 }
-    }
+    { "tag": "marca",    "color": "#43a047" },
+    { "tag": "titular",  "color": "#fb8c00" },
+    { "tag": "classe",   "color": "#5c6bc0" }
   ],
-  "showTags": true,
-  "showAttachments": false,
-  "hideUnresolved": false,
-  "showOrphans": true,
-  "collapse": false,
-  "fixedNodeSize": false,
+  "showLabels": true,
   "nodeSize": 8,
-  "linkThickness": 1.2,
-  "linkDistance": 120,
-  "repelStrength": 12,
-  "filters": {
-    "tags": ["marca", "titular", "classe"],
-    "folders": ["Marcas", "Titulares", "Despachos"]
-  }
+  "linkDistance": 120
 }

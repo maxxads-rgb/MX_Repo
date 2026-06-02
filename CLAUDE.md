@@ -2,80 +2,65 @@
 
 ## Visão Geral
 
-Este repositório contém o **INPI Monitor**, ferramenta de pesquisa e monitoramento de marcas no INPI, integrada a um vault do Obsidian para gestão de conhecimento e visualização de grafos.
+Este repositório contém o **INPI Monitor** integrado a um vault do Obsidian com o plugin **Graphify 2**, que usa a API do Claude para gerar grafos de conhecimento semântico entre as notas de marcas registradas.
 
 ## Estrutura do Projeto
 
 ```
 .
-├── app/                  # Aplicação principal (Python/uv)
-├── obsidian/             # Vault do Obsidian
-│   ├── .obsidian/        # Configuração do vault e plugins
-│   ├── Marcas/           # Notas de processos de marcas
-│   ├── Titulares/        # Notas de titulares
-│   └── Despachos/        # Notas de tipos de despacho
-├── export_to_obsidian.py # Exporta dados INPI → notas Obsidian
-├── iniciar.sh            # Inicializa a aplicação principal
-└── MANUAL.md             # Manual do usuário
+├── app/                          # Aplicação principal INPI Monitor (Python/uv)
+├── obsidian/                     # Vault do Obsidian
+│   ├── .obsidian/
+│   │   ├── plugins/
+│   │   │   └── graphify/         # Plugin Graphify 2
+│   │   │       ├── main.js       # Código do plugin
+│   │   │       ├── manifest.json
+│   │   │       ├── styles.css
+│   │   │       └── data.json     # Config (apiKey — NÃO commitar preenchido)
+│   │   ├── community-plugins.json
+│   │   ├── core-plugins.json
+│   │   └── app.json
+│   ├── Marcas/
+│   ├── Titulares/
+│   └── Despachos/
+├── export_to_obsidian.py
+├── iniciar.sh
+└── MANUAL.md
 ```
 
-## Vault do Obsidian
+## Fluxo de Trabalho
 
-O vault está em `obsidian/`. Para abrir no Obsidian: **Abrir pasta como vault** → selecione `obsidian/`.
+1. **Exportar dados INPI → Obsidian**
+   ```bash
+   python export_to_obsidian.py --xml RM2878.xml --vault obsidian/
+   ```
 
-### Plugins instalados
-- **Graphify 2** (`graphify`): Visualização de grafos de conhecimento com filtros avançados
+2. **Abrir vault no Obsidian**  
+   Obsidian → Abrir pasta como vault → selecionar `obsidian/`
 
-### Exportar dados INPI para o vault
+3. **Configurar API Key no Graphify 2**  
+   Configurações → Plugins da comunidade → Graphify 2 → inserir `sk-ant-api03-...`
 
-```bash
-# Exportar XML da RPI para notas Obsidian
-python export_to_obsidian.py --xml RM2878.xml --vault obsidian/
+4. **Gerar grafo com Claude**  
+   Clicar no ícone `git-fork` na barra lateral → "✦ Analisar com Claude"
 
-# Exportar apenas marcas específicas
-python export_to_obsidian.py --xml RM2878.xml --vault obsidian/ --filtro "CAFE"
-```
+## Plugin Graphify 2
 
-## Comandos Úteis
+O plugin usa a API do Claude para:
+- Ler notas do vault e enviar ao Claude para análise semântica
+- Receber conexões sugeridas com score de similaridade
+- Desenhar grafo com links normais (wiki) e links IA (pontilhados coloridos)
+- Abrir nota com clique no nó
 
-```bash
-# Iniciar a aplicação INPI Monitor
-./iniciar.sh
+### Configurações (`data.json`)
 
-# Exportar dados para Obsidian
-python export_to_obsidian.py --xml <arquivo.xml> --vault obsidian/
+| Campo | Padrão | Descrição |
+|---|---|---|
+| `apiKey` | `""` | Chave Anthropic (nunca commitar preenchida) |
+| `model` | `claude-sonnet-4-6` | Modelo Claude usado |
+| `maxNotesPerBatch` | `20` | Notas por análise |
+| `minSimilarityScore` | `0.6` | Score mínimo para exibir conexão |
 
-# Instalar dependências da app
-cd app && uv sync
-```
+## Segurança
 
-## Padrão das Notas Obsidian
-
-Cada processo de marca gera uma nota com frontmatter YAML e links wiki para titular e classes Nice. Isso alimenta o grafo do Graphify 2.
-
-### Exemplo de nota (`obsidian/Marcas/923456789.md`)
-
-```markdown
----
-tags: [marca, classe-35]
-processo: "923456789"
-titular: "Empresa XYZ Ltda"
-deposito: "2021-03-15"
-status: Concessão
----
-
-# MARCA EXEMPLO
-
-- **Titular:** [[Titulares/Empresa XYZ Ltda]]
-- **Classe:** [[Despachos/Classe 35]]
-- **Despacho:** Concessão
-- **Depósito:** 2021-03-15
-```
-
-## Integração com Claude Code
-
-Claude Code pode:
-- Ler e analisar notas do vault em `obsidian/`
-- Executar `export_to_obsidian.py` para atualizar o vault
-- Modificar configurações do Graphify em `.obsidian/plugins/graphify/data.json`
-- Consultar `app/data/monitor.db` (SQLite) para dados de monitoramento
+`data.json` está no `.gitignore` — a chave da API deve ser inserida localmente no Obsidian, nunca versionada.
